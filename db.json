@@ -1,0 +1,179 @@
+{
+    "_id": "64298f4681a79e07dd2bb50f",
+    "1038009917338030192": {
+        "lang": "magyar",
+        "prefix": "%",
+        "swchannel": "1038010730085101576"
+    },
+    "1010145815286775808": {
+        "lang": "magyar",
+        "prefix": "%",
+        "swchannel": "1024924198700855337"
+    },
+    "1007305983699193876": {
+        "prefix": "%",
+        "swchannel": "1041699237387317288",
+        "role": "1041699157624229960",
+        "tchannel": "1041701151340498964",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "1013809757582274622": {
+        "lang": "magyar",
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1040271559513874462": {
+        "lang": "magyar",
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1042144764373520466": {
+        "prefix": "%",
+        "swchannel": "1042145597999829042",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "997751358218309703": {
+        "lang": "magyar",
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1046145139556487199": {
+        "lang": "magyar"
+    },
+    "1046151539141640323": {
+        "lang": "magyar"
+    },
+    "795048436155940914": {
+        "lang": "magyar",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1030730933034287104": {
+        "lang": "magyar",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1065725038818504744": {
+        "prefix": "%",
+        "swchannel": "1067096001787216023",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "990680151509577728": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "996787673714929674",
+        "tickets": [
+            "<#1100689095572856983>"
+        ],
+        "lang": "magyar"
+    },
+    "1088932064780370101": {
+        "lang": "magyar",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "875734375172571158": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "1009863480691662899": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1028200505123553304": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "993929034582990879": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1031161792669425724": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "937683281158209566": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "952882362117664828": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "931883018057039892": {
+        "swchannel": "`Nincs csatorna beállítva!`"
+    },
+    "1089297694532567120": {
+        "prefix": "420",
+        "swchannel": "1097254692284813332",
+        "role": "1097254610718175242",
+        "tchannel": "1097254694893650021",
+        "tickets": [],
+        "lang": "english"
+    },
+    "1092183643042091200": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "1096877827082690733": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "1079720150753890365": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    },
+    "333949691962195969": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "english"
+    },
+    "1100776654265131031": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "english"
+    },
+    "981986165840285756": {
+        "prefix": "%",
+        "swchannel": "`Nincs csatorna beállítva!`",
+        "role": "`Nincs rang beállítva!`",
+        "tchannel": "`Nincs csatorna beállítva!`",
+        "tickets": [],
+        "lang": "magyar"
+    }
+}
