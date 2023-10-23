@@ -16,7 +16,7 @@ function timed_require(x) {
   require = timed_require;
 
 (async () => {
-
+  
     var Discord = require("discord.js");
     var { Intents, MessageActionRow, MessageButton, Client, Permissions } = Discord
     var fs = require("fs");
@@ -28,8 +28,7 @@ function timed_require(x) {
     const mongoose = require("mongoose");
     const GuildSettings = require("./models/settings");
     const Dashboard = require("./dashboard/dashboard");
-
-
+    var dbManage = require("./dbmanage.js")
 
 
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -38,7 +37,7 @@ function timed_require(x) {
 
     require("dotenv").config();
 
-    var db = require("./dbmanage.js").get()
+    var token = process.env.DISCORD_TOKEN;
 
 
 
@@ -67,7 +66,7 @@ function timed_require(x) {
         enableAntiCrash: 'true',
     });
 
-    mongoose.connect(config.mongodbUrl, {
+    mongoose.connect(process.env.MONGOURL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -98,7 +97,7 @@ function timed_require(x) {
 
     var log;
 
-    ["command"].forEach(handler => {
+    ["command", "ready"].forEach(handler => {
         require(`./handlers/${handler}`)(bot)
     });
 
@@ -185,7 +184,7 @@ function timed_require(x) {
             message.reply(String(+new Date - message.Createdtimestamp));
         }*/
 
-        require("./dbmanage.js").set("./db.json", JSON.stringify(db, null, 4))
+        //require("./dbmanage.js").set("./db.json", JSON.stringify(db, null, 4))
 
         if (!db[message.guild.id] || cmd === `${prefix}language` || cmd === `${prefix}lang`) {
 
@@ -771,16 +770,12 @@ function timed_require(x) {
     bot.on("ready", async () => {
         log = (t) => {
             if (t.length < 2000)
-                if (bot.user.id === `1007293246898196521`) { //eredeti bot 
-                    bot.channels.cache.get('1092414782277165136').send("```" + t + "```") //(rythium support szeró debug csatorna)
-                } else {
-                    bot.channels.cache.get('1097254696906920017').send("```" + t + "```")
-                }
+                bot.channels.cache.get(process.env.LOGCH).send("```" + t + "```")
             else
                 log(`ERR: tekszt longör den 2000 chars`)
         }
 
-        require("./saveData.js").init(log);
+       // require("./saveData.js").init(log);
 
 
         for (const [id, guild] of bot.guilds.cache) {
@@ -792,17 +787,10 @@ function timed_require(x) {
         Dashboard(bot);
 
 
-
-
-        //bot.guilds.cache.forEach(guild => {
-        //    console.log(`${guild.name} (ID: ${guild.id})`);
-        //});
-
         var státuszok = [
-            "Developer: Nemenvagyok01#5509",
-            "https://rythium.hu",
+            "Developer: Tonyxforce#5509",
+            "https://hogline.hu",
             "Under construction...",
-            "Új rendszer: %ticket",
             `In ${bot.guilds.cache.size} servers`
         ]
 
@@ -847,6 +835,5 @@ function timed_require(x) {
     bot.on("warn", console.warn);
 
 
-    //bot.login("MTA5MDI5NDAwNTEyNTg3MzgyNA.Gq4Bxj._4HF0l8CnvMIB_zUdM4UCNun1KyLC0FbSxNUPo"); //teszt bot
-    bot.login(config.token); // eredti
+    bot.login(token);
 })()

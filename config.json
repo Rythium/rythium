@@ -13,6 +13,5 @@
     "includePort": false,
     "domain": "https://dash.rythium.hu",
     "discordInvite": "https://discord.gg/",
-    "mongodbUrl": "mongodb+srv://rythiumbot:pass@cluster0.hi8vb4n.mongodb.net/", 
     "clientSecret": "3FYBaZ5AuONSU316Uw-nwhj9U7eSYuMt"
 }
