@@ -1,6 +1,6 @@
 var startTime = +new Date;
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-shadow-restricted-names */
+/* eslint-disable no-shadow-restricted-names editor test */
 
 
 
