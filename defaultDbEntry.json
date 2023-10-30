@@ -1,8 +1,8 @@
 {
     "prefix": "%",
-    "swchannel": "`Nincs csatorna beállítva!`",
-    "role": "`Nincs rang beállítva!`",
-    "tchannel": "`Nincs csatorna beállítva!`",
+    "swchannel": /* "`Nincs csatorna beállítva!`" */ false,
+    "role": /* "`Nincs rang beállítva!`" */ false,
+    "tchannel": /* "`Nincs csatorna beállítva!`" */ false,
     "tickets": [],
     "lang": "magyar"
 }
