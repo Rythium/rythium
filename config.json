@@ -7,11 +7,8 @@
     "embedszin": "#217a30",
 
     "port": 80, 
-    "prefix": "!",
-    "id": "1007293246898196521",
     "usingCustomDomain": false,
     "includePort": false,
     "domain": "https://dash.rythium.hu",
-    "discordInvite": "https://discord.gg/",
-    "clientSecret": "3FYBaZ5AuONSU316Uw-nwhj9U7eSYuMt"
+    "discordInvite": "https://discord.gg/"
 }
