@@ -6,14 +6,13 @@
 git clone https://github.com/rythium/rythium
 ```
 
-1) download and install packages:
-
+2)
 ```bash
 npm run install
 ```
 
-4) create the .env file and put necessary values in it (example in .env.default)
-5) run the bot:
+3) create the .env file and put necessary values in it (example in .env.default)
+4) run the bot:
 
 ```bash
 npm start

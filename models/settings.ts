@@ -6,7 +6,7 @@ const {
   tickets,
   lang,
 } = require("../defaults.json");
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 // We declare new schema.
 const guildSettingSchema = new Schema({

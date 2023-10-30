@@ -1,20 +1,6 @@
 /* eslint-disable no-self-assign */
 /* eslint-disable no-inline-comments */
 
-
-var orig_req = require;
-
-function timed_require(x) {
-  const start = Date.now();
-  const mod = orig_req(x);
-  console.log(`required ${x} in ${Date.now() - start}ms`);
-  return mod;
-}
-
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-require = timed_require;
-
 // We import modules.
 const url = require("url");
 const ejs = require("ejs");
@@ -38,7 +24,7 @@ const app = express();
 const MemoryStore = require("memorystore")(session);
 
 // We export the dashboard as a function which we call in ready event.
-module.exports = async (client) => {
+export var dashInit = async (client) => {
   // We declare absolute paths.
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`); // The absolute path of current this directory.
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`); // Absolute path of ./templates directory.
@@ -225,7 +211,7 @@ module.exports = async (client) => {
 
     if (!client.users.cache.get(req.params.userID)) res.redirect("/profile");
 
-    var bannerUrl = await getBanner(req.params.userID);
+    let bannerUrl = await getBanner(req.params.userID);
     renderTemplate(res, req, "profile.ejs", {
       perms: Permissions,
       bannerUrl,
@@ -252,7 +238,7 @@ module.exports = async (client) => {
       url: req.params.request_params ? `https://api.hetrixtools.com/v1/105976af470ef1de2f93d3fa81c7fd84${req.params.request_params}` : 'https://api.hetrixtools.com/v1/105976af470ef1de2f93d3fa81c7fd84/uptime/monitors/0/30/',
     };
 
-    var response = await axios.request(config)
+    let response = await axios.request(config)
 
     res.send(response);
   });
@@ -307,7 +293,7 @@ module.exports = async (client) => {
 
     app.post("/dashboard/:guildID/" + e, checkAuth, async (req, res) => {
 
-      var alert = "";
+      let alert = "";
 
       // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
       const guild = client.guilds.cache.get(req.params.guildID);
@@ -318,12 +304,12 @@ module.exports = async (client) => {
         return res.redirect("/dashboard");
       }
 
-      var storedSettings;
+      let storedSettings;
 
       console.log(req.body)
       if (req.body.template) {
 
-        var templateToLoad = req.body.template;
+        let templateToLoad = req.body.template;
         console.log(templateToLoad)
         console.log(guild.id)
 
@@ -348,9 +334,9 @@ module.exports = async (client) => {
         storedSettings = await GuildSettings.findOne({ guildID: guild.id });
       }
 
-      /*var prefix = storedSettings.prefix
+      /*let prefix = storedSettings.prefix
       console.log(prefix)
-      var chx = guild.channels.cache.filter(chx => chx.type === "GUILD_TEXT").find(x => x.position === 0);
+      let chx = guild.channels.cache.filter(chx => chx.type === "GUILD_TEXT").find(x => x.position === 0);
       chx.send(`${prefix}template1 igen`)
       chx.send(`${prefix}template1 yes`)*/
 
