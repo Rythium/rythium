@@ -1,5 +1,5 @@
-module.exports = (bot, dbManage)=>{
-  
-console.log(`${bot.user.name} started!`)
-  
+module.exports = (bot)=>{
+    bot.on("ready", ()=>{
+        console.log(`${bot.user.tag} started!`)
+    })
 }

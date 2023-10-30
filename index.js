@@ -21,19 +21,17 @@ function timed_require(x) {
     var { Intents, MessageActionRow, MessageButton, Client, Permissions } = Discord
     var fs = require("fs");
     var antiCrash = require('discord-anticrash')
-    const discordTranscripts = require('discord-html-transcripts');
+    //const discordTranscripts = require('discord-html-transcripts');
 
 
     const config = require("./config");
     const mongoose = require("mongoose");
     const GuildSettings = require("./models/settings");
-    const Dashboard = require("./dashboard/dashboard");
-    var dbManage = require("./dbmanage.js")
+    //const Dashboard = require("./dashboard/dashboard");
 
 
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-    var merge = require("deepmerge")
 
     require("dotenv").config();
 
@@ -46,7 +44,6 @@ function timed_require(x) {
 
     var selectlanguage
     var langmessage
-    var prefix
 
     const bot = new Client(
         {
@@ -76,18 +73,13 @@ function timed_require(x) {
 
     var tickets = [];
 
-    //let prefix = botconfig.prefix;
     let embedszin = config.embedszin;
     let trueemoji = config.trueemoji;
     let falseemoji = config.falseemoji;
     let loadingemoji = config.loadingemoji;
     let arrow_left = config.arrow_left;
     let ryhium_logo = config.ryhium_logo;
-    /*const superagent = require('superagent');
-    const randomPuppy = require('random-puppy');
-    const { hasSubscribers } = require("diagnostics_channel");*/
 
-    //const disbut = require('discord-buttons');
 
     ////////////////////handler////////////////////  \/
     bot.commands = new Discord.Collection();
@@ -102,8 +94,7 @@ function timed_require(x) {
     });
 
     bot.on("messageCreate", async message => {
-        var db = require("./dbmanage.js").get()
-        if (!message.channel.permissionsFor(message.guild.me).has(Permissions.FLAGS.SEND_MESSAGES)) return;
+        if (!message.channel.permissionsFor(message.guild.me).has(Permissions.FLAGS.SEND_MESSAGES)) return console.error("No permission to send messages");
 
 
         // Retriving the guild settings from database.
@@ -123,10 +114,6 @@ function timed_require(x) {
         }
 
 
-
-
-
-
         //if (!message.guild.id === `1007305983699193876`) return
         var MesssageArray = message.content.split(" ");
         var cmd = MesssageArray[0];
@@ -135,10 +122,6 @@ function timed_require(x) {
         if (!message.guild) return log("Error: no message.guild.id")
 
         var prefix = storedSettings.prefix
-
-        console.log(prefix)
-        if(!message.content.startsWith(prefix)) return;
-        //if (message.author.bot) return;
 
         if (debugMode) {
             if (cmd == "!!getFile") {
@@ -179,296 +162,6 @@ function timed_require(x) {
 
         }
 
-
-        /*if (message.content == prefix + "ping") {
-            message.reply(String(+new Date - message.Createdtimestamp));
-        }*/
-
-        //require("./dbmanage.js").set("./db.json", JSON.stringify(db, null, 4))
-
-        if (!db[message.guild.id] || cmd === `${prefix}language` || cmd === `${prefix}lang`) {
-
-
-
-            if (cmd === `${prefix}help` || cmd === `${prefix}language` || cmd === `${prefix}lang`) {
-                langmessage = message
-                const languages = new MessageActionRow()
-                    .addComponents(
-                        new MessageButton()
-                            .setCustomId('magyar')
-                            .setLabel('Magyar')
-                            .setStyle('PRIMARY')
-                            .setEmoji("🇭🇺"),
-                    )
-                    .addComponents(
-                        new MessageButton()
-                            .setCustomId('english')
-                            .setLabel('English US')
-                            .setStyle('PRIMARY')
-                            .setEmoji("🇺🇸"),
-                    );
-
-                let languageembed = new Discord.MessageEmbed()
-                    .setTitle(`Language`)
-                    .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                    .setDescription("👋 **|** Hello! Please select an language before using Rythium!")
-                    .setColor(embedszin)
-                    .setThumbnail(bot.user.displayAvatarURL())
-                    .setTimestamp()
-                    .setFooter(`${bot.user.username} • Language`, `${bot.user.displayAvatarURL()}`);
-
-                selectlanguage = await message.reply({ embeds: [languageembed], components: [languages] });
-
-                setTimeout(function () {
-
-
-                    const langsettimeout = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId('langtimeisup')
-                                .setLabel('Time is up')
-                                .setStyle('DANGER')
-                                .setEmoji(falseemoji)
-                                .setDisabled(true)
-                        )
-
-                    let languageembed = new Discord.MessageEmbed()
-                        .setTitle(`Language`)
-                        .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                        .setDescription(`${falseemoji} **|** Your time is up!`)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Language`, `${bot.user.displayAvatarURL()}`);
-
-                    //selectlanguage.edit({ embeds: [languageembed], components: [langsettimeout] });
-                }, 60000);
-            }
-            return;
-        }
-
-        var cmdlang = db[message.guild.id].lang
-
-        if (cmd === `<@${bot.user.id}>`) {
-
-            if (cmdlang === `magyar`) {
-
-                var PrefixEmbed = new Discord.MessageEmbed()
-
-                    .setColor(embedszin)
-
-                    .setTitle(`Szia! Én vagyok Ryhium, szolgálatra készen állok!`)
-
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .addField("Ezen a szerveren ez a prefixem", `${prefix}`, false)
-                    .addField("Parancsaim megtekintéséhez írd le ezt", `${prefix}help`, false)
-                    .addField(`Prefix beállítás`, `${prefix}setprefix`, false)
-                    .addField(`Beállított nyelv`, `magyar`, false)
-                    .setThumbnail(bot.user.displayAvatarURL())
-
-                    .setTimestamp()
-
-                    .setFooter(`${bot.user.username} • Prefix info`, `${bot.user.displayAvatarURL()}`);
-
-                message.channel.send(({ embeds: [PrefixEmbed] }));
-
-            } else {
-                var PrefixEmbed = new Discord.MessageEmbed()
-
-                    .setColor(embedszin)
-
-                    .setTitle(`Hello! I'm Ryhium, I am ready to serve!`)
-
-                    .setAuthor(message.author.username, message.author.displayAvatarURL())
-                    .addField("This is my prefix on this server", `${prefix}`, false)
-                    .addField("Type this to see my commands", `${prefix}help`, false)
-                    .addField(`Prefix set`, `${prefix}setprefix`, false)
-                    .addField(`Setted language`, `English US`, false)
-                    .setThumbnail(bot.user.displayAvatarURL())
-
-                    .setTimestamp()
-
-                    .setFooter(`${bot.user.username} • Prefix info`, `${bot.user.displayAvatarURL()}`);
-
-                message.channel.send(({ embeds: [PrefixEmbed] }));
-            }
-
-        }
-
-        if (cmd === `${prefix}prefix` || cmd === `${prefix}setprefix`) {
-
-            if (cmdlang === `magyar`) {
-
-                if (!message.member.permissions.has("ADMINISTRATOR")) return message.reply(`${falseemoji} **|** Ehhez nincs jogod! \`ADMINISTRATOR\``)
-                if (!args[0]) {
-                    let pinfo = new Discord.MessageEmbed()
-                        .setTitle(`Prefix információi:`)
-                        .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                        .addField("Prefix", `${prefix}`, false)
-                        .addField("Szerver név", `${message.guild.name}`, false)
-                        .addField(`Szerver id`, `${message.guild.id}`, false)
-                        .addField(`Eredeti prefix`, `%`, false)
-                        .addField(`Prefix beállítás`, `${prefix}setprefix <új prefix>`, false)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Info`, `${bot.user.displayAvatarURL()}`);
-                    message.reply(({ embeds: [pinfo] }))
-                } else {
-                    let pload = new Discord.MessageEmbed()
-                        .setTitle(`Prefix beállítása...`)
-                        .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                        .setDescription(`${loadingemoji} **|** Kérlek várj... `)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Prefix beállítás`, `${bot.user.displayAvatarURL()}`);
-                    var p = await message.reply(({ embeds: [pload] }))
-                    setTimeout(function () {
-                        db[message.guild.id].prefix = `${args.slice(0).join(" ")}`
-
-
-                        require("./dbmanage.js").set("./db.json", JSON.stringify(db, null, 4))
-
-                        prefix = db[message.guild.id].prefix;
-
-                        let swinfo = new Discord.MessageEmbed()
-                            .setTitle(`${trueemoji} **|** Prefix beállítva!`)
-                            .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                            .addField("Prefix", `${prefix}`, false)
-                            .addField("Szerver név", `${message.guild.name}`, false)
-                            .addField(`Szerver id`, `${message.guild.id}`, false)
-                            .addField(`Eredeti prefix`, `%`, false)
-                            .setColor(embedszin)
-                            .setThumbnail(bot.user.displayAvatarURL())
-                            .setTimestamp()
-                            .setFooter(`${bot.user.username} • Prefix beállítás`, `${bot.user.displayAvatarURL()}`);
-                        p.edit(({ embeds: [swinfo] }))
-
-                        bot.users.fetch('762742605254754325', false).then((user) => {
-                            user.send(`Prefix átállítva erre a szerverre: **${message.guild.name}** | **${message.guild.id}** | **${prefix}**`);
-                        });
-                    }, 10000);
-                }
-            } else {
-                if (!message.member.permissions.has("ADMINISTRATOR")) return message.reply(`${falseemoji} **|** You don't have permission for that! \`ADMINISTRATOR\``)
-                if (!args[0]) {
-                    let pinfo = new Discord.MessageEmbed()
-                        .setTitle(`Prefix informations:`)
-                        .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                        .addField("Prefix", `${prefix}`, false)
-                        .addField("Server name", `${message.guild.name}`, false)
-                        .addField(`Server id`, `${message.guild.id}`, false)
-                        .addField(`Original prefix`, `%`, false)
-                        .addField(`Set prefix`, `${prefix}setprefix <new prefix>`, false)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Info`, `${bot.user.displayAvatarURL()}`);
-                    message.reply(({ embeds: [pinfo] }))
-                } else {
-                    let pload = new Discord.MessageEmbed()
-                        .setTitle(`Setting prefix...`)
-                        .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                        .setDescription(`${loadingemoji} **|** Please wait... `)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Prefix settings`, `${bot.user.displayAvatarURL()}`);
-                    var p = await message.reply(({ embeds: [pload] }))
-                    setTimeout(function () {
-                        db[message.guild.id].prefix = `${args.slice(0).join(" ")}`
-
-                        require("./dbmanage.js").set("./db.json", JSON.stringify(db, null, 4));
-
-                        prefix = db[message.guild.id].prefix;
-
-                        let swinfo = new Discord.MessageEmbed()
-                            .setTitle(`${trueemoji} **|** Prefix setted!`)
-                            .setAuthor({ name: message.author.username, iconURL: message.author.displayAvatarURL() })
-                            .addField("Prefix", `${prefix}`, false)
-                            .addField("Server name", `${message.guild.name}`, false)
-                            .addField(`Server id`, `${message.guild.id}`, false)
-                            .addField(`Original prefix`, `%`, false)
-                            .setColor(embedszin)
-                            .setThumbnail(bot.user.displayAvatarURL())
-                            .setTimestamp()
-                            .setFooter(`${bot.user.username} • Prefix settings`, `${bot.user.displayAvatarURL()}`);
-                        p.edit(({ embeds: [swinfo] }))
-
-                        bot.users.fetch('762742605254754325', false).then((user) => {
-                            user.send(`Prefix átállítva erre a szerverre: **${message.guild.name}** | **${message.guild.id}** | **${prefix}**`);
-                        });
-                    }, 10000);
-                }
-            }
-        }
-
-        if (cmd === `%ticketset`) {
-
-            if (cmdlang === `magyar`) {
-                if (message.author.id === `${bot.user.id}` || message.author.id === '762742605254754325') {
-
-                    let ticketOpenChannel = db[message.guild.id].tchannel
-
-                    const ticketcreate = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId(`${ticketOpenChannel}`)
-                                .setLabel('Ticket nyitása')
-                                .setStyle('PRIMARY')
-                                .setEmoji('🎫')
-                                .setDisabled(false)
-                        )
-                    message.delete()
-                    let ticketembed = new Discord.MessageEmbed()
-
-                        .addField('❓ **|** Nyitás:', `Kattints a "Ticket nyitása" gombra.`, false)
-                        .addField('📝 **|** Megjegyzés:', `Ha nem működik a ticket, akkor szólj az Adminisztrátoroknak!`, false)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Ticket`, `${bot.user.displayAvatarURL()}`);
-
-                    message.channel.send({ embeds: [ticketembed], components: [ticketcreate] });
-                } else {
-                    message.reply(`${falseemoji} **|** Ehhez nincs jogod!`)
-                }
-
-            } else {
-
-                if (/* message.author.id === '1090294005125873824' || message.author.id === '762742605254754325' */true) {
-
-                    let ticketOpenChannel = db[message.guild.id].tchannel
-
-                    const ticketcreate = new MessageActionRow()
-                        .addComponents(
-                            new MessageButton()
-                                .setCustomId(`${ticketOpenChannel}`)
-                                .setLabel('Open a ticket')
-                                .setStyle('PRIMARY')
-                                .setEmoji('🎫')
-                                .setDisabled(false)
-                        )
-                    message.delete()
-                    let ticketembed = new Discord.MessageEmbed()
-
-                        .addField('❓ **|** Open:', `Click on the "Open a Ticket" button.`, false)
-                        .addField('📝 **|** Comment:', `If the ticket doesn't work, tell the Administrators!`, false)
-                        .setColor(embedszin)
-                        .setThumbnail(bot.user.displayAvatarURL())
-                        .setTimestamp()
-                        .setFooter(`${bot.user.username} • Ticket`, `${bot.user.displayAvatarURL()}`);
-
-                    message.channel.send({ embeds: [ticketembed], components: [ticketcreate] });
-                } else {
-                    message.reply(`${falseemoji} **|** You don't have permission for that!`)
-                }
-
-            }
-
-        }
-
         if (!message.content.startsWith(prefix)) return;
 
         if (!message.member) message.member = await message.guild.fetchMember(message)
@@ -490,9 +183,8 @@ function timed_require(x) {
 
 
     bot.on('interactionCreate', async interaction => {
+        return; // !!#TODO remove this after testing
 
-
-        db = require("./dbmanage.js").get()
 
         //log(db)
 
@@ -741,6 +433,8 @@ function timed_require(x) {
     });
 
     bot.on('channelDelete', async (channel) => {
+        return// !!#TODO remove this after testing
+
         // get the channel ID
         const channelDeleteId = channel.id;
 
@@ -784,7 +478,7 @@ function timed_require(x) {
 
         console.log("Emberek betöltve memóriába!")
 
-        Dashboard(bot);
+        //Dashboard(bot);
 
 
         var státuszok = [
@@ -809,6 +503,8 @@ function timed_require(x) {
 
 
     bot.on('guildMemberAdd', member => {
+        return //!!#TODO remove this after testing
+
         let guild = member.guild;
         let channelid = db[guild.id].swchannel;
         if (!db[guild.id] || channelid === `\`Nincs csatorna beállítva!\``) {
