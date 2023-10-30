@@ -1,4 +1,7 @@
 {
-    "prefix": "!"
-
+    "welcomech": /* "`Nincs csatorna beállítva!`" */ false,
+    "autorole": /* "`Nincs rang beállítva!`" */ false,
+    "tchannel": /* "`Nincs csatorna beállítva!`" */ false,
+    "tickets": [],
+    "lang": "hu_HU"
 }
