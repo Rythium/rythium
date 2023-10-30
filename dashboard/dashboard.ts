@@ -5,18 +5,27 @@
 const url = require("url");
 const ejs = require("ejs");
 const path = require("path");
-const chalk = require("chalk");
 const axios = require("axios");
 const config = require("../config");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const Strategy = require("passport-discord").Strategy;
-const getBanner = require("./banner");
+import {getUserBannerUrl} from "./banner"
 const bodyParser = require("body-parser");
 const GuildSettings = require("../models/settings");
-const { boxConsole } = require("../functions/boxConsole");
-const { Permissions } = require("discord.js");
+const Discord = require("discord.js"),
+  {
+    Client,
+    GatewayIntentBits,
+    Partials,
+    MessageActionRow,
+    MessageButton,
+    Permissions,
+    ButtonStyle,
+    IntentsBitField,
+    PermissionsBitField
+  } = Discord;
 
 
 // We instantiate express app and the session store.
@@ -24,7 +33,7 @@ const app = express();
 const MemoryStore = require("memorystore")(session);
 
 // We export the dashboard as a function which we call in ready event.
-export var dashInit = async (client) => {
+export async function initDash(client) {
   // We declare absolute paths.
   const dataDir = path.resolve(`${process.cwd()}${path.sep}dashboard`); // The absolute path of current this directory.
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`); // Absolute path of ./templates directory.
@@ -49,12 +58,15 @@ export var dashInit = async (client) => {
     };
   } catch (e) {
     console.log(e);
-    throw new TypeError("Invalid domain specific in the config file.");
+    throw new TypeError("Invalid domain specified in the config file.");
   }
+
+
 
 
   callbackUrl = `${domain.protocol}//${domain.host}${config.includePort ? ":" + domain.port : ""}/callback`;
 
+  console.log(callbackUrl)
   // We set the passport to use a new discord strategy, we pass in client id, secret, callback url and the scopes.
   /** Scopes:
    *  - Identify: Avatar's url, username and discriminator.
@@ -63,8 +75,8 @@ export var dashInit = async (client) => {
   passport.use(
     new Strategy(
       {
-        clientID: config.id,
-        clientSecret: config.clientSecret,
+        clientID: client.user.id,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
         callbackURL: callbackUrl,
         scope: ["identify", "guilds"],
       },
@@ -203,7 +215,7 @@ export var dashInit = async (client) => {
 
   // Dashboard endpoint.
   app.get("/dashboard", checkAuth, (req, res) => {
-    renderTemplate(res, req, "dashboard.ejs", { perms: Permissions });
+    renderTemplate(res, req, "dashboard.ejs", { perms: Permissions, PermissionsBitField });
   });
 
   app.get("/profile/:userID", checkAuth, async (req, res) => {
@@ -211,7 +223,7 @@ export var dashInit = async (client) => {
 
     if (!client.users.cache.get(req.params.userID)) res.redirect("/profile");
 
-    let bannerUrl = await getBanner(req.params.userID);
+    let bannerUrl = await getUserBannerUrl(req.params.userID, client);
     renderTemplate(res, req, "profile.ejs", {
       perms: Permissions,
       bannerUrl,

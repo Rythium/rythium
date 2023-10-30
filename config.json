@@ -9,6 +9,6 @@
     "port": 80, 
     "usingCustomDomain": false,
     "includePort": false,
-    "domain": "https://dash.rythium.hu",
+    "domain": "http://localhost:80",
     "discordInvite": "https://discord.gg/"
 }

@@ -5,9 +5,15 @@
   <h2 style="text-align: center; color: white;"><strong>Válassz szervert!</strong></h2>
 
   <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <% user.guilds.forEach(guild=> {
-      const permsOnGuild = new perms(guild.permissions_new);
-      if(!permsOnGuild.has(perms.FLAGS.MANAGE_GUILD)) return;
+    <% 
+    var guild = user.guilds[0]
+
+    
+    user.guilds.forEach(guild=> {
+      var perms = new PermissionsBitField();
+      perms.add(PermissionsBitField.Flags.ManageGuild)
+      
+      if(BigInt(guild.permissions) & perms.bitfield) return;
       %>
 
       <div class="card">
