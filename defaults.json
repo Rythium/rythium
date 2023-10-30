@@ -1,7 +1,7 @@
 {
-    "welcomech": /* "`Nincs csatorna beállítva!`" */ false,
-    "autorole": /* "`Nincs rang beállítva!`" */ false,
-    "tchannel": /* "`Nincs csatorna beállítva!`" */ false,
+    "welcomech": false,
+    "autorole": false,
+    "tchannel": false,
     "tickets": [],
     "lang": "hu_HU"
 }
