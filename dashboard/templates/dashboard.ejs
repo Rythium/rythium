@@ -13,7 +13,7 @@
       var perms = new PermissionsBitField();
       perms.add(PermissionsBitField.Flags.ManageGuild)
       
-      if(BigInt(guild.permissions) & perms.bitfield) return;
+      if(BigInt(guild.permissions) & perms.bitfield != 0) return;
       %>
 
       <div class="card">

@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "tsc && node ."
+    "run": "tsc && node --trace-deprecation ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "akaneko": "^5.2.8",
     "ascii-table": "^0.0.9",
     "axios": "^1.6.0",
     "body-parser": "^1.20.2",

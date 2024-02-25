@@ -66,7 +66,7 @@ export async function initDash(client) {
 
   callbackUrl = `${domain.protocol}//${domain.host}${config.includePort ? ":" + domain.port : ""}/callback`;
 
-  console.log(callbackUrl)
+  //console.log(callbackUrl)
   // We set the passport to use a new discord strategy, we pass in client id, secret, callback url and the scopes.
   /** Scopes:
    *  - Identify: Avatar's url, username and discriminator.

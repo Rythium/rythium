@@ -15,7 +15,7 @@ const guildSettingSchema = new Schema(
       type: String,
     },
     welcomech: {
-      type: String,
+      type: Number,
       default: welcomech,
     },
     autorole: {
